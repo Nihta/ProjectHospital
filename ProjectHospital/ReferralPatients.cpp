@@ -16,10 +16,23 @@ ReferralPatients::ReferralPatients(string id, string n, string dB, bool gen, str
     this->transferPlace = tP;
 }
 
+ReferralPatients::ReferralPatients(fstream& data) : Patients(data) {
+    string date;
+    getline(data, date);
+    this->tranferDate = Date(date);
+    getline(data, this->transferPlace);
+}
+
 void ReferralPatients::display() {
     Patients::display();
-    cout << setw(20) << "Ngay chuyen vien: " << this->tranferDate << "\n"
-        << setw(20) << "Noi chuyen vien: " << this->transferPlace << "\n";
+    cout << std::right << "|" << setw(20) << "Ngay chuyen vien: " << std::left << setw(58) << this->tranferDate << "|\n"
+        << std::right << "|" << setw(20) << "Noi chuyen vien: " << std::left << setw(58) << this->transferPlace << "|\n";
+}
+
+void ReferralPatients::writeToFile(fstream &file) {
+    Patients::writeToFile(file);
+    file << this->tranferDate << "\n"
+        << this->transferPlace << "\n";
 }
 
 ReferralPatients::~ReferralPatients() {

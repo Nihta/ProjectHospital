@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include "Patients.h"
+// Class bệnh nhân ngoại trú
 class Outpatient :
     public Patients
 {
@@ -13,7 +14,12 @@ private:
 public:
     Outpatient();
     Outpatient(string id, string n, string dB, bool gen, string dia, string eD, string hI, string pr);
+    // Khởi tạo từ file
+    Outpatient(fstream& data);
+    // Hiện thị 
     void display();
+    // Ghi thông tin vào file;
+    void writeToFile(fstream& file);
     ~Outpatient();
 };
 

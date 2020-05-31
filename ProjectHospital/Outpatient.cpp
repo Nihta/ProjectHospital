@@ -20,11 +20,26 @@ Patients(id, n, dB, gen, dia) {
     this->prescription = pr;
 }
 
+Outpatient::Outpatient(fstream& data) : Patients(data) {
+    string date;
+    getline(data, date);
+    this->examinationDate = Date(date);
+    getline(data, this->healthInsurance);
+    getline(data, this->prescription);
+}
+
 void Outpatient::display() {
     Patients::display();
-    cout << setw(20) << "Ngay kham: " << this->examinationDate << "\n"
-        << setw(20) << "Bao hiem y te so: " << this->healthInsurance << "\n"
-        << setw(20) << "Ma toa thuoc: " << this->prescription << "\n";
+    cout << std::right << "|" << setw(20) << "Ngay kham: " << std::left << setw(58) << this->examinationDate << "|\n"
+        << std::right << "|" << setw(20) << "Bao hiem y te so: " << std::left << setw(58) << this->healthInsurance << "|\n"
+        << std::right << "|" << setw(20) << "Ma toa thuoc: " << std::left << setw(58) << this->prescription << "|\n";
+}
+
+void Outpatient::writeToFile(fstream &file) {
+    Patients::writeToFile(file);
+    file << this->examinationDate << "\n"
+        << this->healthInsurance << "\n"
+        << this->prescription << "\n";
 }
 
 Outpatient::~Outpatient() {

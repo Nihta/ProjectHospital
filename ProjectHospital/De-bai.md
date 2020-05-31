@@ -6,7 +6,7 @@ Bệnh nhân nội trú:
 - Mã hồ sơ, Họ tên, Ngày sinh, Giới tính, Chẩn đoán bệnh,
   Ngày nhập viện, Ngày ra viện, Tên khoa, Số giường;
 
-- Bệnh nhân ngoại trú: Mã hồ sơ, Họ tên, Ngày sinh, Giới tính,  Chẩn đoán bệnh,
+- Bệnh nhân ngoại trú: Mã hồ sơ, Họ tên, Ngày sinh, Giới tính, Chẩn đoán bệnh,
   Ngày khám, Sổ bảo hiểm y tế, Mã toa thuốc;
 
 Bệnh nhân chuyển viện: Mã hồ sơ, Họ tên, Ngày sinh, Giới tính, Chẩn đoán bệnh,

@@ -16,6 +16,8 @@ public:
     Date();
     // Khởi tạo từ string
     Date(string d);
+    // Xuất định dạng string
+    string toString();
     // Nhập dạng dd/mm/yyyy
     friend istream& operator>>(istream& is, Date& D);
     // In định dạng dạng dd/mm/yyyy

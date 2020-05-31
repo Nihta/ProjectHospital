@@ -25,12 +25,30 @@ Inpatient::Inpatient(string id, string n, string dB, bool gen, string dia, strin
 	this->bedId = bI;
 }
 
+Inpatient::Inpatient(fstream& data) : Patients(data) {
+	string date;
+	getline(data, date);
+	this->hospitalizeDate = Date(date);
+	getline(data, date);
+	this->dischargeDate = Date(date);
+	getline(data, this->departmentName);
+	getline(data, this->bedId);
+}
+
 void Inpatient::display() {
 	Patients::display();
-	cout << setw(20) << "Ngay nhap vien: " << this->hospitalizeDate << "\n"
-		<< setw(20) << "Nhay ra vien: " << this->dischargeDate << "\n"
-		<< setw(20) << "Ten khoa dieu tri: " << this->departmentName << "\n"
-		<< setw(20) << "So giuong: " << this->bedId << "\n";
+	cout << std::right << "|" << setw(20) << "Ngay nhap vien: " << std::left << setw(58) << this->hospitalizeDate << "|\n"
+		<< std::right << "|" << setw(20) << "Ngay ra vien: " << std::left << setw(58) << this->dischargeDate << "|\n"
+		<< std::right << "|" << setw(20) << "Ten khoa dieu tri: " << std::left << setw(58) << this->departmentName << "|\n"
+		<< std::right << "|" << setw(20) << "So giuong: " << std::left << setw(58) << this->bedId << "|\n";
+}
+
+void Inpatient::writeToFile(fstream& file) {
+	Patients::writeToFile(file);
+	file << this->hospitalizeDate << "\n"
+		<< this->dischargeDate << "\n"
+		<< this->departmentName << "\n"
+		<< this->bedId << "\n";
 }
 
 Inpatient::~Inpatient() {

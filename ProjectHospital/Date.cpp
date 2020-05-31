@@ -19,8 +19,10 @@ Date::Date(string d)
     ss >> this->day >> tmp >> this->month >> tmp >> this->year;
 }
 
-Date::~Date()
-{
+string Date::toString() {
+    stringstream res;
+    res << this->day << "/" << this->month << "/" << this->year;
+    return res.str();
 }
 
 istream& operator>>(istream& is, Date& D)
@@ -36,4 +38,8 @@ ostream& operator<<(ostream& os, const Date& D)
     res << D.day << "/" << D.month << "/" << D.year;
     os << res.str();
     return os;
+}
+
+Date::~Date()
+{
 }
