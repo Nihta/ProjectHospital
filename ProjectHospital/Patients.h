@@ -19,9 +19,11 @@ protected:
 	bool gender = true;
 	// Chuẩn đoán bệnh
 	string diagnosis;
+	// Ngày ra viện
+	Date dischargeDate = Date("0/0/0");
 public:
 	Patients();
-	Patients(string id, string name, string dateOfBirth, bool gender, string diagnosis);
+	Patients(string id, string name, string dateOfBirth, bool gender, string diagnosis, string dischargeDate);
 	// Khởi tạo đối tượng mới từ file
 	Patients(fstream &data);
 	string getId();

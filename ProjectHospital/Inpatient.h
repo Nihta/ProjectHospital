@@ -8,15 +8,13 @@ class Inpatient :
 private:
     // Ngày nhập viện
     Date hospitalizeDate;
-    // Ngày ra viện
-    Date dischargeDate;
     // Tên khoa
     string departmentName;
     // Số giường
     string bedId;
 public:
     Inpatient();
-    Inpatient(string id, string n, string dB, bool gen, string dia, string hD, string dD, string dN, string bI);
+    Inpatient(string id, string n, string dB, bool gen, string dia, string dD, string hD, string dN, string bI);
     // Khởi tạo đối tượng mới từ file
     Inpatient(fstream &data);
     // Hiện thị thông tin

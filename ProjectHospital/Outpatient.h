@@ -13,7 +13,7 @@ private:
     string prescription;
 public:
     Outpatient();
-    Outpatient(string id, string n, string dB, bool gen, string dia, string eD, string hI, string pr);
+    Outpatient(string id, string n, string dB, bool gen, string dia, string dD, string eD, string hI, string pr);
     // Khởi tạo từ file
     Outpatient(fstream& data);
     // Hiện thị 

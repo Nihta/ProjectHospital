@@ -1,44 +1,44 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ClassDiagram MajorVersion="1" MinorVersion="1">
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
   <Class Name="Date">
-    <Position X="6.5" Y="0.5" Width="1.75" />
+    <Position X="7" Y="0.5" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAAkAAAAAAAAAAAAAAAAAAAAAAQAAAABCAAAAAAAAAA=</HashCode>
+      <HashCode>AAAkAAAAAAAAAAAAAAAABAAAAAQAAAABCAAAAAAAAAA=</HashCode>
       <FileName>Date.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Hospital">
-    <Position X="9" Y="0.5" Width="1.75" />
+    <Position X="9.25" Y="0.5" Width="3" />
     <TypeIdentifier>
-      <HashCode>gAAAAAQAAAgAAAAAIAAggAgAAAAAAAgADAAAAgACAAI=</HashCode>
+      <HashCode>gAAAAAQAAAgAAAAAIAAigAgBAAAAAAgADAEAAgACAAI=</HashCode>
       <FileName>Hospital.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Inpatient">
-    <Position X="2.75" Y="4.5" Width="1.5" />
+    <Position X="3.75" Y="5.5" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAAACAAAAAAIAABAAAAAAAAAACEEAAAAAAAABAEAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAIAABAAAAAAAAAACEEAAAAAAAABAEAAAA=</HashCode>
       <FileName>Inpatient.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Outpatient">
-    <Position X="0.5" Y="4.5" Width="1.5" />
+    <Position X="0.5" Y="5.5" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAAAABAAAAEAAAAAAAAAAAAAAAEABAAAAAAgBAAAACA=</HashCode>
       <FileName>Outpatient.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Patients">
-    <Position X="2.75" Y="0.5" Width="2" />
+    <Position X="3.5" Y="0.5" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>EgAAAAAAAAAAAAAAAAIQgAAAAAEEAAAABAAEBAAAAgA=</HashCode>
+      <HashCode>EgAACAAAAAAAAAAAAAIQgAAAAAEEAAAABAAEBAAAAgI=</HashCode>
       <FileName>Patients.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ReferralPatients">
-    <Position X="5.25" Y="4.5" Width="1.5" />
+    <Position X="6.5" Y="5.5" Width="2.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAABAAEAAAAAAAYABAAAAAA=</HashCode>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAABAAEAAAAAAAYABAAAAAA=</HashCode>
       <FileName>ReferralPatients.h</FileName>
     </TypeIdentifier>
   </Class>

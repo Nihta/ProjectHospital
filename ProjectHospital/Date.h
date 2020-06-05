@@ -4,6 +4,7 @@
 using namespace std;
 #pragma once
 
+// Class ngày tháng năm
 class Date
 {
 private:

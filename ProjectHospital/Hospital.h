@@ -15,9 +15,14 @@ using namespace std;
 class Hospital
 {
 private:
+	// Danh sách bẹnh nhân nội trú
 	vector<Patients *> listInpatient;
+	// Danh sách bệnh nhân ngoại trú
 	vector<Patients *> listOutpatient;
+	// Danh sách bệnh nhân chuyển viện
 	vector<Patients *> listReferralPatients;
+	// Danh sách bệnh nhân xuất viện
+	vector<Patients*> listLeaveHospital;
 
 public:
 	Hospital();
@@ -37,7 +42,7 @@ public:
 	void find();
 	// Sửa hồ sơ
 	bool edit(string id);
-	// Xóa hồ sơ
+	// Xuất viện
 	bool del(string id);
 	// Chuyển viện
 	void changeType();

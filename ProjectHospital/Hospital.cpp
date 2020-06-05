@@ -4,10 +4,11 @@ Hospital::Hospital() {
 	this->readDataFromFile("dataInpatient");
 	this->readDataFromFile("dataOutpatient");
 	this->readDataFromFile("dataReferralPatients");
+	this->readDataFromFile("dataLeaveHospital");
 
 }
 
-// fileName: dataInpatient, dataOutpatient, dataReferralPatients
+// fileName: dataInpatient, dataOutpatient, dataReferralPatients, dataLeaveHospital
 void Hospital::readDataFromFile(string fileName) {
 	fstream data(fileName + ".txt", ios::in);
 	if (data.fail())
@@ -32,6 +33,9 @@ void Hospital::readDataFromFile(string fileName) {
 			else if (fileName == "dataReferralPatients") {
 				this->listReferralPatients.push_back(new ReferralPatients(data));
 			}
+			else if (fileName == "dataLeaveHospital") {
+				this->listLeaveHospital.push_back(new Patients(data));
+			}
 			string blankLine;
 			getline(data, blankLine);
 		}
@@ -39,7 +43,7 @@ void Hospital::readDataFromFile(string fileName) {
 	data.close();
 }
 
-// fileName: dataInpatient, dataOutpatient, dataReferralPatients
+// fileName: dataInpatient, dataOutpatient, dataReferralPatients, dataLeaveHospital
 void Hospital::writeDataToFile(string fileName, vector<Patients *> data) {
 	fstream file(fileName + ".txt", ios::out);
 	file << data.size() << "\n";
@@ -51,10 +55,11 @@ void Hospital::writeDataToFile(string fileName, vector<Patients *> data) {
 }
 
 void Hospital::add() {
-	cout << "[ Chon loai benh nhan can them ]\n"
-		<< "\t1. Benh nhan noi tru\n"
-		<< "\t2. Benh nhan ngoai tru\n"
-		<< "\t3. Benh nhan chuyen vien\n";
+	cout << "+---- Chon loai benh nhan can them -----+\n"
+	 	 << "| 1. Benh nhan noi tru                  |\n"
+	 	 << "| 2. Benh nhan ngoai tru                |\n"
+	 	 << "| 0. Quay lai                           |\n"
+		 << "+---------------------------------------+\n";
 
 	int option;
 	cin >> option;
@@ -68,6 +73,7 @@ void Hospital::add() {
 		Patients* tmp = new Inpatient();
 		this->listInpatient.push_back(tmp);
 		this->writeDataToFile("dataInpatient", this->listInpatient);
+		getchar();
 	}
 	break;
 	case 2:
@@ -76,24 +82,20 @@ void Hospital::add() {
 		Patients* tmp = new Outpatient();
 		this->listOutpatient.push_back(tmp);
 		this->writeDataToFile("dataOutpatient", this->listOutpatient);
-	}
-	break;
-	case 3:
-	{
-		system("cls");
-		Patients* tmp = new ReferralPatients();
-		this->listReferralPatients.push_back(tmp);
-		this->writeDataToFile("dataReferralPatients", this->listReferralPatients);
+		getchar();
 	}
 	break;
 	}
 }
 
 void Hospital::show() {
-	cout << "[ Chon loai benh nhan can hien thi ]\n"
-		<< "\t1. Benh nhan noi tru\n"
-		<< "\t2. Benh nhan ngoai tru\n"
-		<< "\t3. Benh nhan chuyen vien\n";
+   cout << "+---- Chon loai benh nhan can hien thi ----+\n"
+		<< "| 1. Benh nhan noi tru                     |\n"
+		<< "| 2. Benh nhan ngoai tru                   |\n"
+		<< "| 3. Benh nhan chuyen vien                 |\n"
+		<< "| 4. Benh nhan xuat vien                   |\n"
+	    << "| 0. Thoat                                 |\n"
+		<< "+------------------------------------------+\n";
 
 	int option;
 	cin >> option;
@@ -113,6 +115,7 @@ void Hospital::show() {
 				cout << stringBar << endl;
 			}
 		}
+		getchar();
 		break;
 	case 2:
 		if (this->listOutpatient.size() == 0) {
@@ -125,6 +128,7 @@ void Hospital::show() {
 				cout << stringBar << endl;
 			}
 		}
+		getchar();
 		break;
 	case 3:
 		if (this->listReferralPatients.size() == 0) {
@@ -137,6 +141,21 @@ void Hospital::show() {
 				cout << stringBar << endl;
 			}
 		}
+		getchar();
+		break;
+	case 4:
+		if (this->listLeaveHospital.size() == 0) {
+			cout << "Khong co ho so nao de hien thi!" << endl;
+		}
+		else {
+			cout << stringBar << endl;
+			for (unsigned int i = 0; i < this->listLeaveHospital.size(); i++) {
+				this->listLeaveHospital[i]->display();
+				cout << std::right << "|" << setw(20) << "Ngay ra vien: " << std::left << setw(58) << this->listLeaveHospital[i]->getAllData()[5] << "|\n";
+				cout << stringBar << endl;
+			}
+		}
+		getchar();
 		break;
 	}
 }
@@ -270,29 +289,41 @@ bool Hospital::edit(string id) {
 	return false;
 }
 
-bool Hospital::del(string id) {
+bool Hospital::del(string ID) {
 	for (unsigned int i = 0; i < this->listInpatient.size(); i++)
 	{
-		if (this->listInpatient[i]->getId() == id) {
+		if (this->listInpatient[i]->getId() == ID) {
+			// Thêm vào danh sách xuất viện
+			vector<string> data = this->listInpatient[i]->getAllData();
+			string id = data[0];
+			string n = data[1];
+			string dB = data[2];
+			bool gen = (data[3] == "1");
+			string dia = data[4];
+			string dD = Date().toString();
+			this->listLeaveHospital.push_back(new Patients(id, n, dB, gen, dia, dD));
+			this->writeDataToFile("dataLeaveHospital", this->listLeaveHospital);
+			
+			// Xóa khỏi danh sách hiện tại
 			this->listInpatient.erase(this->listInpatient.begin() + i);
 			this->writeDataToFile("dataInpatient", this->listInpatient);
 			return true;
 		}
-
 	}
 	for (unsigned int i = 0; i < this->listOutpatient.size(); i++)
 	{
-		if (this->listOutpatient[i]->getId() == id) {
+		if (this->listOutpatient[i]->getId() == ID) {
+			vector<string> data = this->listOutpatient[i]->getAllData();
+			string id = data[0];
+			string n = data[1];
+			string dB = data[2];
+			bool gen = (data[3] == "1");
+			string dia = data[4];
+			string dD = Date().toString();
+			this->listLeaveHospital.push_back(new Patients(id, n, dB, gen, dia, dD));
+			this->writeDataToFile("dataLeaveHospital", this->listLeaveHospital);
 			this->listOutpatient.erase(this->listOutpatient.begin() + i);
 			this->writeDataToFile("dataOutpatient", this->listOutpatient);
-			return true;
-		}
-	}
-	for (unsigned int i = 0; i < this->listReferralPatients.size(); i++)
-	{
-		if (this->listReferralPatients[i]->getId() == id) {
-			this->listReferralPatients.erase(this->listReferralPatients.begin() + i);
-			this->writeDataToFile("dataReferralPatients", this->listReferralPatients);
 			return true;
 		}
 	}
@@ -336,18 +367,26 @@ void Hospital::changeType() {
 		string dB = data[2];
 		bool gen = (data[3] == "1");
 		string dia = data[4];
+
 		string tD;
 		cout << "Nhap ngay chuyen vien (nhap 0 la ngay hom nay): ";
 		getline(cin, tD);
 		if (tD == "0") {
 			tD = Date().toString();
 		}
+
 		cout << "Nhap noi chuyen den: ";
 		string tP;
 		getline(cin, tP);
-		Patients* newRP = new ReferralPatients(id, n, dB, gen, dia, tD, tP);
+
+		cout << "Nhap tinh trang benh: ";
+		string st;
+		getline(cin, st);
+		
+		Patients* newRP = new ReferralPatients(id, n, dB, gen, dia, "0/0/0" , tD, tP, st);
 		this->listReferralPatients.push_back(newRP);
 		this->writeDataToFile("dataReferralPatients", this->listReferralPatients);
+
 		if (type == "Inpatient") {
 			this->listInpatient.erase(this->listInpatient.begin() + index);
 			this->writeDataToFile("dataInpatient", this->listInpatient);
@@ -357,6 +396,7 @@ void Hospital::changeType() {
 			this->listOutpatient.erase(this->listOutpatient.begin() + index);
 			this->writeDataToFile("dataOutpatient", this->listOutpatient);
 		}
+
 		system("cls");
 		cout << "Chuyen thanh cong!" << endl;
 	}
@@ -368,6 +408,7 @@ void Hospital::statistical() {
 		<< "|" << setw(40) << "So luong ho so benh nhan noi tru: " << setw(5) << this->listInpatient.size() << "|\n"
 		<< "|" << setw(40) << "So luong ho so benh nhan ngoai tru: " << setw(5) << this->listOutpatient.size() << "|\n"
 		<< "|" << setw(40) << "So luong ho so benh nhan chuyen vien: " << setw(5) << this->listReferralPatients.size() << "|\n"
+		<< "|" << setw(40) << "So luong ho so bennh nhan da xuat vien: " << setw(5) << this->listLeaveHospital.size() << "|\n"
 		<< "+" << string(45, '-') << "+\n";
 }
 
@@ -381,7 +422,7 @@ void Hospital::menu() {
 			<< "| " << std::left << setw(29)   << "2. Hien thi ho so benh an" << "|\n"
 			<< "| " << std::left << setw(29)<< "3. Tim kiem" << "|\n"
 			<< "| " << std::left << setw(29)<< "4. Sua ho so" << "|\n"
-			<< "| " << std::left << setw(29)<< "5. Xoa ho so" << "|\n"
+			<< "| " << std::left << setw(29)<< "5. Xuat vien" << "|\n"
 			<< "| " << std::left << setw(29) << "6. Chuyen vien" << "|\n"
 			<< "| " << std::left << setw(29)<< "7. Thong ke" << "|\n"
 			<< "| " << std::left << setw(29)<< "0. Thoat" << "|\n"
@@ -396,11 +437,9 @@ void Hospital::menu() {
 		{
 		case 1:
 			this->add();
-			getchar();
 			break;
 		case 2:
 			this->show();
-			getchar();
 			break;
 		case 3:
 			this->find();
@@ -424,14 +463,14 @@ void Hospital::menu() {
 		case 5:
 		{
 			string id;
-			cout << "Nhap ma ho so can xoa: ";
+			cout << "Nhap ma ho so benh nhan can xuat vien: ";
 			getline(cin, id);
 			system("cls");
 			if (this->del(id)) {
-				cout << "Xoa thanh cong!" << endl;
+				cout << "Xuat vien thanh cong!" << endl;
 			}
 			else {
-				cout << "Xoa that bai! Khong tim thay ho so." << endl;
+				cout << "Xuat vien that bai! Khong tim thay ho so." << endl;
 			}
 			getchar();
 		}

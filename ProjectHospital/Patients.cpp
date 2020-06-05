@@ -21,12 +21,13 @@ Patients::Patients() {
 	getline(cin, this->diagnosis);
 }
 
-Patients::Patients(string id, string name, string dateOfBirth, bool gender, string diagnosis) {
+Patients::Patients(string id, string name, string dateOfBirth, bool gender, string diagnosis, string dischargeDate) {
 	this->id = id;
 	this->name = name;
 	this->dateOfBirth = Date(dateOfBirth);
 	this->gender = gender;
 	this->diagnosis = diagnosis;
+	this->dischargeDate = Date(dischargeDate);
 }
 
 string Patients::getId() {
@@ -47,6 +48,8 @@ Patients::Patients(fstream& data) {
 	getline(data, bl);
 	this->gender = (bl == "1") ? true : false;
 	getline(data, this->diagnosis);
+	getline(data, date);
+	this->dischargeDate = Date(date);
 }
 
 void Patients::display() {
@@ -61,8 +64,9 @@ void Patients::writeToFile(fstream &file) {
 	file << this->id << "\n"
 		<< this->name << "\n"
 		<< this->dateOfBirth << "\n"
-		<< (this->gender? "1" : "0") << "\n"
-		<< this->diagnosis << "\n";
+		<< (this->gender ? "1" : "0") << "\n"
+		<< this->diagnosis << "\n"
+		<< this->dischargeDate << "\n";
 }
 
 // { Mã hồ sơ, họ tên, ngày sinh, giới tính, chuẩn đoán }
@@ -73,6 +77,7 @@ vector<string> Patients::getAllData() {
 	res.push_back(this->dateOfBirth.toString());
 	res.push_back(this->gender? "1" : "0");
 	res.push_back(this->diagnosis);
+	res.push_back(this->dischargeDate.toString());
 	return res;
 }
 

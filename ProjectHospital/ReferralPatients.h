@@ -10,9 +10,11 @@ private:
     Date tranferDate;
     // Nơi chuyển
     string transferPlace;
+    // Tình trạng
+    string status;
 public:
     ReferralPatients();
-    ReferralPatients(string id, string n, string dB, bool gen, string dia, string tD, string tP);
+    ReferralPatients(string id, string n, string dB, bool gen, string dia, string dD, string tD, string tP, string st);
     // Khởi tạo từ file
     ReferralPatients(fstream& data);
     // Hiện thị thông tin

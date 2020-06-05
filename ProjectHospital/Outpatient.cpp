@@ -13,8 +13,8 @@ Outpatient::Outpatient() : Patients() {
     getline(cin, this->prescription);
 }
 
-Outpatient::Outpatient(string id, string n, string dB, bool gen, string dia, string eD, string hI, string pr) :
-Patients(id, n, dB, gen, dia) {
+Outpatient::Outpatient(string id, string n, string dB, bool gen, string dia, string dD, string eD, string hI, string pr) :
+Patients(id, n, dB, gen, dia, dD) {
     this->examinationDate = Date(eD);
     this->healthInsurance = hI;
     this->prescription = pr;
@@ -31,7 +31,7 @@ Outpatient::Outpatient(fstream& data) : Patients(data) {
 void Outpatient::display() {
     Patients::display();
     cout << std::right << "|" << setw(20) << "Ngay kham: " << std::left << setw(58) << this->examinationDate << "|\n"
-        << std::right << "|" << setw(20) << "Bao hiem y te so: " << std::left << setw(58) << this->healthInsurance << "|\n"
+        << std::right << "|" << setw(20) << "Bao hiem y te so: " << std::left << setw(58) << (this->healthInsurance == "0" ? "Khong co bao hiem" : this->healthInsurance) << "|\n"
         << std::right << "|" << setw(20) << "Ma toa thuoc: " << std::left << setw(58) << this->prescription << "|\n";
 }
 

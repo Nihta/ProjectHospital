@@ -6,10 +6,6 @@ Inpatient::Inpatient() : Patients() {
 	getline(cin, date);
 	this->hospitalizeDate = (date == "0") ? Date() : Date(date);
 
-	cout << "Nhap ngay ra vien: ";
-	getline(cin, date);
-	this->dischargeDate = Date(date);
-
 	cout << "Nhap ten khoa dieu tri: ";
 	getline(cin, this->departmentName);
 
@@ -17,10 +13,9 @@ Inpatient::Inpatient() : Patients() {
 	getline(cin, this->bedId);
 }
 
-Inpatient::Inpatient(string id, string n, string dB, bool gen, string dia, string hD, string dD, string dN, string bI) :
-	Patients(id, n, dB, gen, dia) {
+Inpatient::Inpatient(string id, string n, string dB, bool gen, string dia, string dD, string hD, string dN, string bI) :
+	Patients(id, n, dB, gen, dia, dD) {
 	this->hospitalizeDate = Date(hD);
-	this->dischargeDate = Date(dD);
 	this->departmentName = dN;
 	this->bedId = bI;
 }
@@ -38,7 +33,6 @@ Inpatient::Inpatient(fstream& data) : Patients(data) {
 void Inpatient::display() {
 	Patients::display();
 	cout << std::right << "|" << setw(20) << "Ngay nhap vien: " << std::left << setw(58) << this->hospitalizeDate << "|\n"
-		<< std::right << "|" << setw(20) << "Ngay ra vien: " << std::left << setw(58) << this->dischargeDate << "|\n"
 		<< std::right << "|" << setw(20) << "Ten khoa dieu tri: " << std::left << setw(58) << this->departmentName << "|\n"
 		<< std::right << "|" << setw(20) << "So giuong: " << std::left << setw(58) << this->bedId << "|\n";
 }
